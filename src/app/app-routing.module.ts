@@ -4,15 +4,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
-    path: '',
     redirectTo: '/video-list',
     pathMatch: 'full'
   },
@@ -41,9 +32,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/video-list/video-list.module').then( m => m.VideoListPageModule)
   },
   {
-    path: 'video-player',
+    path: 'video-player/:movieId',
     loadChildren: () => import('./pages/video-player/video-player.module').then( m => m.VideoPlayerPageModule)
-  }
+  },
 ];
 
 @NgModule({

@@ -1,7 +1,9 @@
 export interface Movie {
     id: number;
     title: string;
-    release_year: number; // Добавьте поле для года выпуска
+    release_year: number; 
     poster_path: string;
-    // Другие поля
+    
   }
+
+  

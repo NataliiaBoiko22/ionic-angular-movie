@@ -2,6 +2,11 @@
   "name": "ionic-angular-movie",
   "integrations": {
     "capacitor": {}
-  },
+  }, "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://api.themoviedb.org/3"
+    }
+  ],
   "type": "angular"
 }

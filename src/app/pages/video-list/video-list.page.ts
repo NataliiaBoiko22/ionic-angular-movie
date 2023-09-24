@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/interfaces/interfaces';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-video-list',
@@ -12,7 +15,7 @@ export class VideoListPage implements OnInit {
   public movies: any[] = []; 
   currentPage = 1;
 
-  constructor(public movieService: MovieService) { }
+  constructor(public movieService: MovieService, public navCtrl: NavController, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.loadMovies();
@@ -58,4 +61,15 @@ export class VideoListPage implements OnInit {
         }
       });
   }
+
+  async openVideoPlayer(movieId: number) {
+    const key = await this.movieService.getMovieById(movieId);
+    if (key) {
+      const videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${key}`);
+      this.navCtrl.navigateForward(`/video-player/${movieId}`, { state: { videoUrl } });
+    } else {
+      console.log('Video not found.');
+    }
+  }
+
 }

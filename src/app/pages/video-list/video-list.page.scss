@@ -1,14 +1,14 @@
 .movie-card {
-    height: 370px; /* Установите желаемую фиксированную высоту */
-    overflow: hidden; /* Скрыть содержимое, которое выходит за пределы карточки */
+    height: 370px; 
+    overflow: hidden;
   }
   
   .movie-card ion-card-title {
-    white-space: nowrap; /* Предотвратить перенос текста */
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Добавить многоточие для обрезанного текста */
+    text-overflow: ellipsis; 
   }
   .movie-card ion-img {
     height: 300px; 
-    object-fit: cover; /* Сохранить пропорции изображения и уместить его в рамку */
+    object-fit: cover; 
   }

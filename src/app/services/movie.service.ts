@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import axios from 'axios';
 export class MovieService {
   private API_KEY = '0f347322078f7ab31991a46962bbff3a'; 
 
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) {}
 
   getMovies(page: number) {
     const baseURL = 'https://api.themoviedb.org/3/'; 
@@ -30,5 +31,42 @@ getMovieImageUrl(imagePath: string | null): string {
       return '/assets/poster-modal-plug-desktop.jpg';
     }
   }
+  async getMovieById(movieId: number) {
+    console.log('getMovieById');
+    const baseURL = 'https://api.themoviedb.org/3/';
+    const partUrl = `movie/${movieId}`;
+    console.log('partUrl', partUrl);
+    try {
+      const videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${baseURL}${partUrl}/videos?api_key=${this.API_KEY}`);
 
+      console.log('VIDEO URL', videoUrl);
+      const response = await axios.get(`${baseURL}${partUrl}/videos?api_key=${this.API_KEY}`,
+    {
+        params: {
+          api_key: this.API_KEY,
+        },
+      });
+      console.log('RESPONSE', response);
+      const data = response.data.results;
+    if (data.length === 0 || data === undefined) {
+      alert('Sorry, trailer not found.');
+      return;
+    }
+
+    let objectTrailer = data.find((obj: any) =>
+      obj.name.split(' ').includes('Trailer')
+    );
+
+    if (objectTrailer === undefined) {
+      objectTrailer = data[0];
+    }
+
+    const key = objectTrailer.key;
+    console.log('key', key);
+    return key;
+    } catch (error) {
+      throw new Error('Error');
+    }
+  }
 }
+
