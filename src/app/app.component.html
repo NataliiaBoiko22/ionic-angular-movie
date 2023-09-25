@@ -15,11 +15,10 @@
         </ion-list>
 
         <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+          <ion-list-header>Genres</ion-list-header>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
+          <ion-item *ngFor="let genreName of genreNames" lines="none" (click)="handleGenreClick(genreName)">
+            <ion-label>{{ genreName }}</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>

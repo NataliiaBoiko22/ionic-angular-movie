@@ -10,18 +10,23 @@ export class MovieService {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  getMovies(page: number) {
+  getMovies(page: number, genreId?: number) {
+    console.log('GET MOVIE');
     const baseURL = 'https://api.themoviedb.org/3/'; 
-    const partUrl = 'movie/popular'; 
-
+    let partUrl = 'movie/popular'; 
+    if (genreId) {
+      console.log('IF GENRE ID', genreId);
+      partUrl = 'discover/movie'; // Используем discover/movie, чтобы получить фильмы по жанру
+    }
     return axios.get(`${baseURL}${partUrl}`, {
       params: {
         api_key: this.API_KEY,
         page: page.toString(),
+        with_genres: genreId,
       },
     });
   }
-
+  
  
 getMovieImageUrl(imagePath: string | null): string {
     if (imagePath) {
@@ -68,5 +73,9 @@ getMovieImageUrl(imagePath: string | null): string {
       throw new Error('Error');
     }
   }
+
+
+
+  
 }
 

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { VideoListPageRoutingModule } from './video-list-routing.module';
 
 import { VideoListPage } from './video-list.page';
+import { VideoFilterComponent } from 'src/app/components/video-filter/video-filter.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { VideoListPage } from './video-list.page';
     IonicModule,
     VideoListPageRoutingModule
   ],
-  declarations: [VideoListPage]
+  declarations: [VideoListPage, VideoFilterComponent],
+
 })
 export class VideoListPageModule {}

@@ -29,12 +29,15 @@ const routes: Routes = [
   },
   {
     path: 'video-list',
-    loadChildren: () => import('./pages/video-list/video-list.module').then( m => m.VideoListPageModule)
+    loadChildren: () => import('./pages/video-list/video-list.module').then( m => m.VideoListPageModule),
+    data: { labels: ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'] },
+
   },
   {
     path: 'video-player/:movieId',
     loadChildren: () => import('./pages/video-player/video-player.module').then( m => m.VideoPlayerPageModule)
   },
+
 ];
 
 @NgModule({
