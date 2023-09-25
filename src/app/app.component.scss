@@ -2,10 +2,10 @@ ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 ion-menu {
-  --width: 180px;
-  --max-width: 180px; 
+  --width: 100%;
+  --max-width: 100; 
 
-  --min-width: 180px; 
+  --min-width: 100; 
   --side-width: 0;
 }
 

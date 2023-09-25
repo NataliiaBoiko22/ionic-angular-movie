@@ -1,7 +1,7 @@
 export interface IMovie {
     id: number;
     title: string;
-    release_year: number; 
+    release_date: number; 
     poster_path: string;
     genre_ids: number[]; 
     genreName: string

@@ -1,6 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>VideoList</ion-title>
+    <!-- <ion-title>VideoList</ion-title> -->
+    <ion-searchbar placeholder="Search by title" class="custom-searchbar" [(ngModel)]="searchQuery" (keyup.enter)="onSearchInput($event)" ></ion-searchbar>
+
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +23,7 @@
           <ion-card-content>
             <ion-card-title>{{  movie.title }}</ion-card-title>
 
-            <ion-card-subtitle>{{ movie.release_year }}</ion-card-subtitle>
+            <ion-card-subtitle>{{ movie.release_date | date:'yyyy'  }}</ion-card-subtitle>
             
           </ion-card-content>
         </ion-card>

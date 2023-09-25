@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { IMovie } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root',
 })
@@ -75,7 +75,26 @@ getMovieImageUrl(imagePath: string | null): string {
   }
 
 
-
+ async searchMovies(query: string): Promise<IMovie[]> {
+    console.log('SEARCH MOVIES', query);
+    const baseURL = 'https://api.themoviedb.org/3/';
+    const partUrl = 'search/movie';
+  
+    return axios.get(`${baseURL}${partUrl}`, {
+      params: {
+        api_key: this.API_KEY,
+        query: query,
+      },
+    })
+    .then((response) => {
+      const movies = response.data.results.map((movie: IMovie) => ({
+        ...movie,
+        titleWithYear: `${movie.title} (${movie.release_date})`,
+      }));
+      return movies;
+    });
+  }
+  
   
 }
 

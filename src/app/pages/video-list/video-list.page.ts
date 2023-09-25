@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { GenresService } from 'src/app/services/genres.service';
 import { GenreSelectionService } from 'src/app/services/genre-selection.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-video-list',
@@ -19,7 +20,8 @@ export class VideoListPage implements OnInit {
   public labels: string[] = [];
   selectedGenreId?: number;
   moviesByGenre: { [key: string]: IMovie[] } = {};
-  
+  searchQuery: string = '';
+  private enterKeyPressed = false;
 
   constructor(
     public movieService: MovieService,
@@ -28,7 +30,9 @@ export class VideoListPage implements OnInit {
     private route: ActivatedRoute,
     private genresService: GenresService,
     private genreSelectionService: GenreSelectionService,
-        ) { }
+    private alertController: AlertController,
+    
+    ) { }
      
         async getGenreIdAndFilterMovies(selectedGenre: string) {
           console.log('getGenreIdAndFilterMovies', selectedGenre);
@@ -54,9 +58,10 @@ export class VideoListPage implements OnInit {
     console.log("this.selectedGenreId from loadMovies",  this.selectedGenreId);
     this.movieService.getMovies(1, this.selectedGenreId)
       .then((response) => {
+        console.log("response", response);
         const movies = response.data.results.map((movie: IMovie) => ({
           ...movie,
-          titleWithYear: `${movie.title} (${movie.release_year})`,
+          titleWithYear: `${movie.title} (${movie.release_date})`,
         }
         
         ));
@@ -126,7 +131,47 @@ export class VideoListPage implements OnInit {
   
     }
   }
+
+  async onSearchInput(event: any) {
+    if (event.key === 'Enter') {
+      const query = this.searchQuery;
+      console.log('this.searchQuery', this.searchQuery);
+  
+      try {
+        const movies = await this.movieService.searchMovies(query);
+  
+        this.movies = movies;
+  
+        if (movies.length === 0) {
+          await this.showNoResultsAlert(); 
+        }
+      } catch (error) {
+        console.error('Error fetching movies', error);
+      }
+    }
+  }
+  
   
 
 
+  async showNoResultsAlert() {
+      const alert = await this.alertController.create({
+        header: 'No Results',
+        message: 'Your search did not return any results.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.searchQuery = ''; 
+            },
+          },
+        ],
+      });
+
+      await alert.present();
+  }
 }
+
+  
+
+
