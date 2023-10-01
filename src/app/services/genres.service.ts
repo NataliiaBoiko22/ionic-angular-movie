@@ -38,10 +38,28 @@ export class GenresService {
     return storedGenres ? JSON.parse(storedGenres) : [];
   }
 
-  getGenreNameById(genreId: number): string {
+  getGenreNameById(genreId: number[]): string {
     const storedGenres = this.getGenresFromLocalStorage();
-    const genre = storedGenres.find((g: any) => g.id === genreId);
-    return genre ? genre.name : 'Unknown';
+    if (storedGenres === undefined) {
+      return 'Not-found';
+    }
+  
+    let nameGenres: string[] = [];
+  
+    for (let id of genreId) {
+      storedGenres.forEach((genre: any)=> {
+        if (id === genre.id) {
+          nameGenres.push(genre.name);
+        }
+      });
+    } 
+    const nameGenresSlice = nameGenres.slice(0, 4);
+    if (nameGenres.length > 4) {
+      nameGenresSlice.push('etc.');
+    }
+    console.log("getGenreNameById", nameGenresSlice.join(', '));
+  
+    return nameGenresSlice.join(', ');
   }
 
   async getGenreIdByName(genreName: string): Promise<number | null> {

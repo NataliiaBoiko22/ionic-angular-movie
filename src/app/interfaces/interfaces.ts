@@ -4,7 +4,12 @@ export interface IMovie {
     release_date: number; 
     poster_path: string;
     genre_ids: number[]; 
-    genreName: string
+    genreName: string;
+    original_title: string;
+    vote_average:number;
+    vote_count:number;
+    popularity: number;
+    overview:string;
   }
 
   export interface IGenre {

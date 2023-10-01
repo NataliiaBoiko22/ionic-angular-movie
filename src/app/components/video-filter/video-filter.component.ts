@@ -7,14 +7,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class VideoFilterComponent  implements OnInit {
 
-  @Input() categories: string[]; // Список доступных категорий
+  @Input() categories: string[]; 
   @Output() categorySelected = new EventEmitter<string>();
 
   selectedCategory: string;
 
   constructor() {
-    this.categories = []; // Initialize categories as an empty array
-    this.selectedCategory = ''; // Initialize selectedCategory as an empty string
+    this.categories = []; 
+    this.selectedCategory = ''; 
   }
 
   selectCategory(category: string) {

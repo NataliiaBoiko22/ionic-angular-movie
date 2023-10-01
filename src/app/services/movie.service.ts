@@ -16,7 +16,7 @@ export class MovieService {
     let partUrl = 'movie/popular'; 
     if (genreId) {
       console.log('IF GENRE ID', genreId);
-      partUrl = 'discover/movie'; // Используем discover/movie, чтобы получить фильмы по жанру
+      partUrl = 'discover/movie'; 
     }
     return axios.get(`${baseURL}${partUrl}`, {
       params: {
@@ -53,6 +53,7 @@ getMovieImageUrl(imagePath: string | null): string {
       });
       console.log('RESPONSE', response);
       const data = response.data.results;
+      console.log('DATA', response.data.results);
     if (data.length === 0 || data === undefined) {
       alert('Sorry, trailer not found.');
       return;
@@ -60,7 +61,9 @@ getMovieImageUrl(imagePath: string | null): string {
 
     let objectTrailer = data.find((obj: any) =>
       obj.name.split(' ').includes('Trailer')
+      
     );
+    console.log("objectTrailer", objectTrailer);
 
     if (objectTrailer === undefined) {
       objectTrailer = data[0];

@@ -42,9 +42,9 @@ import { GenreSelectionService } from './services/genre-selection.service';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Movies', url: '/folder/movies', icon: 'videocam' },
-    { title: 'Player', url: '/folder/player', icon: 'play-circle' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
+    { title: 'Movies', url: '/video-list', icon: 'videocam' },
+    { title: 'Player', url: '/video-player', icon: 'play-circle' },
+    { title: 'Favorites', url: '/favorite', icon: 'heart' },
   ];
   public labels: string[] = [];
   genreNames: string[] = [];

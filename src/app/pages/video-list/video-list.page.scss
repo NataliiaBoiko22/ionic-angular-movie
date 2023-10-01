@@ -19,3 +19,19 @@
     max-width: 400px; 
     margin: 0 auto;
   }
+
+  ion-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; 
+  }
+  
+  ion-fab-button {
+    
+    transition: transform 0.3s ease; 
+  }
+  
+  ion-fab-button:hover {
+    transform: scale(1.05);
+  }

@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { IMovie } from 'src/app/interfaces/interfaces';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { GenresService } from 'src/app/services/genres.service';
 import { GenreSelectionService } from 'src/app/services/genre-selection.service';
 import { AlertController } from '@ionic/angular';
-
+import { IonContent } from '@ionic/angular';
+import { ModalService } from 'src/app/services/modal.service';
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.page.html',
@@ -21,27 +21,25 @@ export class VideoListPage implements OnInit {
   selectedGenreId?: number;
   moviesByGenre: { [key: string]: IMovie[] } = {};
   searchQuery: string = '';
-  private enterKeyPressed = false;
+  @ViewChild(IonContent) ionContent!: IonContent;
+
 
   constructor(
     public movieService: MovieService,
     public navCtrl: NavController,
-    private sanitizer: DomSanitizer, 
     private route: ActivatedRoute,
     private genresService: GenresService,
     private genreSelectionService: GenreSelectionService,
+    public modalService: ModalService,
     private alertController: AlertController,
-    
     ) { }
      
         async getGenreIdAndFilterMovies(selectedGenre: string) {
-          console.log('getGenreIdAndFilterMovies', selectedGenre);
           const genreId = await this.genresService.getGenreIdByName(selectedGenre);
           if (genreId !== null) {
             this.selectedGenreId = genreId;
             this.filterMoviesByGenre(this.selectedGenreId);
           }
-          console.log("genreId from getGenreIdAndFilterMovies", genreId);
         }
 
         ngOnInit() {
@@ -55,10 +53,8 @@ export class VideoListPage implements OnInit {
 
   
   loadMovies() {
-    console.log("this.selectedGenreId from loadMovies",  this.selectedGenreId);
     this.movieService.getMovies(1, this.selectedGenreId)
       .then((response) => {
-        console.log("response", response);
         const movies = response.data.results.map((movie: IMovie) => ({
           ...movie,
           titleWithYear: `${movie.title} (${movie.release_date})`,
@@ -102,40 +98,21 @@ export class VideoListPage implements OnInit {
   }
   
 
-  async openVideoPlayer(movieId: number) {
-    const key = await this.movieService.getMovieById(movieId);
-    if (key) {
-      const videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${key}`);
-      this.navCtrl.navigateForward(`/video-player/${movieId}`, { state: { videoUrl } });
-    } else {
-      console.log('Video not found.');
-    }
-  }
-
   filterMoviesByGenre(genreId: number) {
-    console.log("genreId from filterMoviesByGenre", genreId);
     if (!genreId || genreId === 0) {
-      console.log("if (!genre)");
-      // Если жанр не выбран или выбран "All", отображаем все фильмы
       this.movies = this.moviesByGenre['All'];
     } else if (this.moviesByGenre[genreId]) {
-      console.log("if (this.moviesByGenre[genre])", this.moviesByGenre[genreId]);
-      // Если фильмы для выбранного жанра уже загружены, отображаем их
       this.movies = this.moviesByGenre[genreId];
     } else {
-      console.log("else");
       this.loadMovies();
      ;
-      
-        console.log("this.selectedGenre", this.selectedGenreId);
-  
+        
     }
   }
 
   async onSearchInput(event: any) {
     if (event.key === 'Enter') {
       const query = this.searchQuery;
-      console.log('this.searchQuery', this.searchQuery);
   
       try {
         const movies = await this.movieService.searchMovies(query);
@@ -170,6 +147,11 @@ export class VideoListPage implements OnInit {
 
       await alert.present();
   }
+
+  scrollToTop() {
+    this.ionContent.scrollToTop(300); 
+  }
+  
 }
 
   

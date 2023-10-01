@@ -37,6 +37,10 @@ const routes: Routes = [
     path: 'video-player/:movieId',
     loadChildren: () => import('./pages/video-player/video-player.module').then( m => m.VideoPlayerPageModule)
   },
+  {
+    path: 'favorite',
+    loadChildren: () => import('./pages/favorite/favorite.module').then( m => m.FavoritePageModule)
+  },
 
 ];
 
