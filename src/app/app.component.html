@@ -6,19 +6,22 @@
           <ion-list-header>Movies</ion-list-header>
           <ion-note>enjoy your movies</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+          <ion-menu-toggle auto-hide="false" *ngFor="let page of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[page.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon aria-hidden="true" slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ page.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
         <ion-list id="labels-list">
-          <ion-list-header>Genres</ion-list-header>
+          <ion-list-header>Genres 
 
-          <ion-item *ngFor="let genreName of genreNames" lines="none" (click)="handleGenreClick(genreName)">
-            <ion-label>{{ genreName }}</ion-label>
+
+          </ion-list-header>
+
+          <ion-item *ngFor="let genreName of genreNames" lines="none"  [class.selected-genre]="(selectedGenre$ | async) === genreName" (click)="handleGenreClick(genreName)">
+            <ion-label> {{ genreName }}</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>

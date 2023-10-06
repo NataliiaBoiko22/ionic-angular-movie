@@ -124,3 +124,8 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.selected-genre {
+  border: 1px solid var(--ion-color-primary);
+
+}

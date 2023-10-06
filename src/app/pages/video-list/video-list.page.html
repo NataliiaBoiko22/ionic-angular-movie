@@ -1,24 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <!-- <ion-title>VideoList</ion-title> -->
+    <ion-buttons slot="start">
+      <ion-button *ngIf="selectedGenre !== ''"  (click)="clearGenreSelection()">
+        <ion-icon name="arrow-back-circle" size="large" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
     <ion-searchbar placeholder="Search by title" class="custom-searchbar" [(ngModel)]="searchQuery" (keyup.enter)="onSearchInput($event)" ></ion-searchbar>
 
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">VideoList</ion-title>
-    </ion-toolbar>
-    <!-- <app-video-filter [categories]="labels" (categorySelected)="handleGenreSelection($event)"></app-video-filter> -->
-
-  </ion-header>
   
   <ion-grid>
     <ion-row>
       <ion-col size="3" *ngFor="let movie of movies">
-        <!-- <ion-card class="movie-card" (click)="openVideoPlayer(movie.id)"> -->
           <ion-card class="movie-card" (click)="modalService.openMovieModal(movie)">
 
           <ion-img [src]="movieService.getMovieImageUrl(movie.poster_path)" alt="{{ movie.title }}"></ion-img>

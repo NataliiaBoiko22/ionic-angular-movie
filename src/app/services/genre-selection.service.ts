@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class GenreSelectionService {
 
   constructor() { }
-  private selectedGenreSubject = new BehaviorSubject<string>('All');
+  private selectedGenreSubject = new BehaviorSubject<string>('');
   selectedGenre$: Observable<string> = this.selectedGenreSubject.asObservable();
 
   setSelectedGenre(genre: string) {

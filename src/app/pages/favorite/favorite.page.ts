@@ -12,7 +12,7 @@ export class FavoritePage implements OnInit {
 
   favoriteMovies: IMovie[] = [];
 
-  constructor(private favoriteService: FavoriteService,  public movieService: MovieService, public modalService: ModalService) {}
+  constructor(public favoriteService: FavoriteService,  public movieService: MovieService, public modalService: ModalService) {}
 
   ngOnInit() {
     console.log(" this.favoriteMovies",  this.favoriteMovies);

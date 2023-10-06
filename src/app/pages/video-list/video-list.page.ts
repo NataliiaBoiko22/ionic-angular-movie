@@ -21,6 +21,7 @@ export class VideoListPage implements OnInit {
   selectedGenreId?: number;
   moviesByGenre: { [key: string]: IMovie[] } = {};
   searchQuery: string = '';
+  selectedGenre: string | null = null;
   @ViewChild(IonContent) ionContent!: IonContent;
 
 
@@ -32,7 +33,9 @@ export class VideoListPage implements OnInit {
     private genreSelectionService: GenreSelectionService,
     public modalService: ModalService,
     private alertController: AlertController,
-    ) { }
+    ) { this.genreSelectionService.selectedGenre$.subscribe((genre) => {
+      this.selectedGenre = genre;
+    }); }
      
         async getGenreIdAndFilterMovies(selectedGenre: string) {
           const genreId = await this.genresService.getGenreIdByName(selectedGenre);
@@ -105,7 +108,7 @@ export class VideoListPage implements OnInit {
       this.movies = this.moviesByGenre[genreId];
     } else {
       this.loadMovies();
-     ;
+     
         
     }
   }
@@ -152,6 +155,13 @@ export class VideoListPage implements OnInit {
     this.ionContent.scrollToTop(300); 
   }
   
+
+  clearGenreSelection() {
+    this.selectedGenre = '';
+    this.selectedGenreId = undefined;
+    this.genreSelectionService.setSelectedGenre('');
+    this.loadMovies(); 
+     }
 }
 
   
