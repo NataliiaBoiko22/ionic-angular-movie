@@ -14,11 +14,15 @@
             <ion-input label="Email" labelPlacement="floating" placeholder="Enter text" type="email" formControlName="email"></ion-input>
   
         </ion-item>
-        <ion-label color="danger"*ngIf="isEmailInvalid()">Email is invalid</ion-label>
+        <app-error-message [field]="form.get('email')" error="required" message="Email is mandatory"></app-error-message>
+        <app-error-message [field]="form.get('email')" error="email" message="Email is invalid"></app-error-message>
+
         <ion-item>
             <ion-input label="Password" labelPlacement="floating" placeholder="Enter text" type="password" formControlName="password"></ion-input>
   
         </ion-item>
+        <app-error-message [field]="form.get('password')" error="required" message="Password is mandatory"></app-error-message>
+
         <ion-button color="dark" fill="clear" size="full" [disabled]="!form.get('email')?.valid">Forgot email/password</ion-button>
         <ion-button color="success"  size="full" [disabled]="!form.valid" (click)="login()">Login</ion-button>
         <ion-button color="success" fill="clear"  size="full" (click)="register()">Register</ion-button>

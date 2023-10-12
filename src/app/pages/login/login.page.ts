@@ -11,7 +11,7 @@ export class LoginPage implements OnInit {
 
   form: FormGroup;
   emailControl: AbstractControl | null = null;
-
+  passwordControl: AbstractControl | null = null;
   constructor(private router: Router, private formBuilder: FormBuilder) {
     this.form = new FormGroup({}); 
      }
@@ -19,9 +19,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.form = new LoginPageForm(this.formBuilder).createForm()
     this.emailControl = this.form.get('email');
-  }
-  isEmailInvalid(): boolean {
-    return !!this.emailControl?.touched && this.emailControl?.hasError('email');
+    this.passwordControl = this.form.get('password');
+
   }
 
   login(){
