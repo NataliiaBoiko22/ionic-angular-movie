@@ -4,8 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/video-list',
+        redirectTo: 'loader',
     pathMatch: 'full'
+
+    // redirectTo: '/video-list',
+    // pathMatch: 'full'
   },
   {
     path: 'video-list',
