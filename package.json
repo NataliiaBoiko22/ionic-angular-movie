@@ -27,6 +27,8 @@
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
     "@ionic/angular": "^7.0.0",
+    "@ngrx/store": "^16.3.0",
+    "@ngrx/store-devtools": "^16.3.0",
     "@videogular/ngx-videogular": "^8.0.0",
     "add": "^2.0.6",
     "axios": "^1.5.0",

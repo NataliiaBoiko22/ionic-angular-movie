@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
+import { StoreModule } from '@ngrx/store';
+import { ErrorMessageComponent } from "src/app/components/error-message/error-message.component";
 
 describe('LoginPage', () => {
 let component: LoginPage;
@@ -12,10 +14,11 @@ let router: Router;
 
 beforeEach(waitForAsync(() => {
 TestBed.configureTestingModule({
-declarations: [ LoginPage ],
+declarations: [ LoginPage, ErrorMessageComponent ],
 imports: [ IonicModule.forRoot(),
 AppRoutingModule,
-ReactiveFormsModule]
+ReactiveFormsModule,
+StoreModule.forRoot(),]
 }).compileComponents();
 
 fixture = TestBed.createComponent(LoginPage);
