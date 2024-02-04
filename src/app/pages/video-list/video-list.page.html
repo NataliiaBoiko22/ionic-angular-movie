@@ -21,9 +21,14 @@
           <ion-img [src]="movieService.getMovieImageUrl(movie.poster_path)" alt="{{ movie.title }}"></ion-img>
           <ion-card-content>
             <ion-card-title>{{  movie.title }}</ion-card-title>
-
+            <ion-row class="movie-subtitle" >
             <ion-card-subtitle>{{ movie.release_date | date:'yyyy'  }}</ion-card-subtitle>
-            
+            <ion-icon [name]="isHeartFilled ? 'heart' : 'heart-outline'"
+            aria-hidden="true"
+            color="primary"
+            size="large"
+            (click)="toggleHeart()"></ion-icon>
+                                </ion-row>
           </ion-card-content>
         </ion-card>
       </ion-col>

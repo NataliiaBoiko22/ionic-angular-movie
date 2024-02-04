@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { GenreResponce } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,7 +48,7 @@ export class GenresService {
     let nameGenres: string[] = [];
   
     for (let id of genreId) {
-      storedGenres.forEach((genre: any)=> {
+      storedGenres.forEach((genre: GenreResponce)=> {
         if (id === genre.id) {
           nameGenres.push(genre.name);
         }
@@ -71,7 +72,8 @@ export class GenresService {
       });
   
       const genres = response.data.genres;
-      const genre = genres.find((g: any) => g.name === genreName);
+      console.log(genres)
+      const genre = genres.find((g: GenreResponce) => g.name === genreName);
   
       if (genre) {
         return genre.id;

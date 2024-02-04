@@ -1,4 +1,4 @@
-export interface IMovie {
+export interface Movie {
     id: number;
     title: string;
     release_date: number; 
@@ -10,9 +10,15 @@ export interface IMovie {
     vote_count:number;
     popularity: number;
     overview:string;
+    isFavourite: boolean;
+
   }
 
-  export interface IGenre {
+  export interface Genre {
     name: string;
   }
   
+  export interface GenreResponce {
+    id: number;
+    name: string;
+  }

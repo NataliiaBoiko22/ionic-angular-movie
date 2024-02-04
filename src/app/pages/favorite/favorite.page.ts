@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FavoriteService } from 'src/app/services/favorite.service';
-import { IMovie } from 'src/app/interfaces/interfaces';
+import { Movie } from 'src/app/interfaces/interfaces';
 import { MovieService } from 'src/app/services/movie.service';
 import { ModalService } from 'src/app/services/modal.service';
 @Component({
@@ -10,7 +10,7 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class FavoritePage implements OnInit {
 
-  favoriteMovies: IMovie[] = [];
+  favoriteMovies: Movie[] = [];
 
   constructor(public favoriteService: FavoriteService,  public movieService: MovieService, public modalService: ModalService) {}
 

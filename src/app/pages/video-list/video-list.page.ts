@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
-import { IMovie } from 'src/app/interfaces/interfaces';
+import { Movie } from 'src/app/interfaces/interfaces';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
@@ -15,13 +15,14 @@ import { ModalService } from 'src/app/services/modal.service';
   styleUrls: ['./video-list.page.scss'],
 })
 export class VideoListPage implements OnInit {
-  public movies: IMovie[] = [];
+  public movies: Movie[] = [];
   currentPage = 1;
   public labels: string[] = [];
   selectedGenreId?: number;
-  moviesByGenre: { [key: string]: IMovie[] } = {};
+  moviesByGenre: { [key: string]: Movie[] } = {};
   searchQuery: string = '';
   selectedGenre: string | null = null;
+  isHeartFilled = false;
   @ViewChild(IonContent) ionContent!: IonContent;
 
 
@@ -58,7 +59,7 @@ export class VideoListPage implements OnInit {
   loadMovies() {
     this.movieService.getMovies(1, this.selectedGenreId)
       .then((response) => {
-        const movies = response.data.results.map((movie: IMovie) => ({
+        const movies = response.data.results.map((movie: Movie) => ({
           ...movie,
           titleWithYear: `${movie.title} (${movie.release_date})`,
         }
@@ -113,8 +114,9 @@ export class VideoListPage implements OnInit {
     }
   }
 
-  async onSearchInput(event: any) {
-    if (event.key === 'Enter') {
+  async onSearchInput(event: Event) {
+    const keyboardEvent = event as KeyboardEvent;
+    if (keyboardEvent.key === 'Enter') {
       const query = this.searchQuery;
   
       try {
@@ -162,6 +164,10 @@ export class VideoListPage implements OnInit {
     this.genreSelectionService.setSelectedGenre('');
     this.loadMovies(); 
      }
+
+     toggleHeart() {
+      this.isHeartFilled = !this.isHeartFilled;
+    }
 }
 
   

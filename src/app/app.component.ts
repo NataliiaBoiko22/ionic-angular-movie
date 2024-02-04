@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import { GenresService } from './services/genres.service';
-import { IGenre } from './interfaces/interfaces';
+import { Genre, GenreResponce } from './interfaces/interfaces';
 import { GenreSelectionService } from './services/genre-selection.service';
 import { Observable } from 'rxjs';
 
@@ -22,8 +22,8 @@ export class AppComponent {
 
   constructor(private genresService: GenresService, private genreSelectionService: GenreSelectionService) {}
   ngOnInit() {
-    const genres: IGenre[] = this.genresService.getGenresFromLocalStorage();
-    const uniqueGenreNames = [...new Set(genres.map((genre: any) => genre.name))];
+    const genres: Genre[] = this.genresService.getGenresFromLocalStorage();
+    const uniqueGenreNames = [...new Set(genres.map((genre: Genre) => genre.name))];
     this.genreNames = uniqueGenreNames;
     this.selectedGenre$ = this.genreSelectionService.selectedGenre$;
   }

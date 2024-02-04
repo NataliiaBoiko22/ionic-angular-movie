@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { IMovie } from 'src/app/interfaces/interfaces';
+import { Movie } from 'src/app/interfaces/interfaces';
 import { MovieService } from 'src/app/services/movie.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavController } from '@ionic/angular';
@@ -20,7 +20,7 @@ export class MovieModalComponent  implements OnInit {
     public favoriteService: FavoriteService
     
   ) { }
-  @Input()  movie: IMovie = {} as IMovie;
+  @Input()  movie: Movie = {} as Movie;
   @Input() genreName!: string; 
   closeModal() {
     this.modalController.dismiss();
@@ -29,7 +29,7 @@ export class MovieModalComponent  implements OnInit {
   ngOnInit() {}
 
 
-  toggleFavorite(movie: IMovie) {
+  toggleFavorite(movie: Movie) {
     if (this.favoriteService.isInFavorites(movie.id)) {
       this.favoriteService.removeFromFavorites(movie);
     } else {

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IMovie } from '../interfaces/interfaces';
+import { Movie } from '../interfaces/interfaces';
 @Injectable({
   providedIn: 'root'
 })
 export class FavoriteService {
 
-  public favoriteMovies: IMovie[] = [];
+  public favoriteMovies: Movie[] = [];
   private movieStatus: { [movieId: number]: boolean } = {};
 
 
@@ -13,13 +13,13 @@ export class FavoriteService {
     this.loadFavorites();
   }
 
-  addToFavorites(movie: IMovie) {
+  addToFavorites(movie: Movie) {
     this.favoriteMovies.push(movie);
     this.movieStatus[movie.id] = true;
     this.saveFavorites();
   }
 
-  removeFromFavorites(movie: IMovie) {
+  removeFromFavorites(movie: Movie) {
     const index = this.favoriteMovies.findIndex((m) => m.id === movie.id);
     if (index !== -1) {
       this.favoriteMovies.splice(index, 1);
@@ -33,7 +33,7 @@ export class FavoriteService {
   }
 
 
-  getFavoriteMovies(): IMovie[] {
+  getFavoriteMovies(): Movie[] {
     return this.favoriteMovies;
   }
 

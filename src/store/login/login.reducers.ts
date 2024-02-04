@@ -1,6 +1,6 @@
 import { LoginState } from "./Login.State";
 import { createReducer, on, Action } from "@ngrx/store";
-import { recoverPassword, recoverPasswordFail, recoverPasswordSuccess} from "./login.actions";
+import { login, loginFail, loginSuccess, recoverPassword, recoverPasswordFail, recoverPasswordSuccess} from "./login.actions";
 import { AppInitialState } from "../AppInitialState";
 
 const initialState: LoginState = AppInitialState.login;
@@ -30,9 +30,29 @@ const reducer = createReducer(initialState,
 
         };
     }),
+    on(login, currentState => {
+        return {...currentState,
+            error: null,
+    isLoggedIn: false,
+    isLoggingIn: true,
 
- 
-    
+        };
+    }),
+    on(loginSuccess, currentState => {
+        return {...currentState,
+    isLoggedIn: true,
+    isLoggingIn: false,
+
+        };
+    }),
+    on(loginFail, (currentState, action) => {
+        return {...currentState,
+            error: action.error,
+    isLoggedIn: false,
+    isLoggingIn: false,
+
+        };
+    }),
     )
     export function loginReducer(state: LoginState, action: Action){
         return reducer(state, action);
